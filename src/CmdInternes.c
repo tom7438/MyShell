@@ -24,5 +24,5 @@ int cmd(char **cmd){
 }
 
 void cmdPwd(){
-    return 0;
+
 }
