@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "readcmd.h"
 #include "csapp.h"
+#include "CmdInternes.h"
 
 
 int main(){
@@ -29,40 +30,45 @@ int main(){
 		}
 		
 		// 2) Si la commande est quit alors exit
-		if (!strcmp(l->seq[0][0], "quit")){
+		if (!strcmp(l->seq[0][0], "quit") || !strcmp(l->seq[0][0], "exit")){
 			printf("\n");
 			exit(0);
 		}
-		
+
+        // Commande interne ou non
+        if(searchCmd(l->seq[0][0])==0){
+            if(execvp(l->seq[0][0], l->seq[0]) < 0){perror("execpv ");exit(2);}
+        }
 		// 3) && 4) Commande simple && Redirections d'entrées et sorties
+        else{
+            pid_t pid=Fork();
 
-		pid_t pid=Fork();
+            if(pid==-1){perror("Fork ");exit(2);}
 
-        if(pid==-1){perror("Fork ");exit(1);}
-
-		else if (pid==0){
-            int fdIn;
-            int fdOut;
-            if (l->in){
-                fdIn = Open(l->in, O_RDONLY, 0);
-                if (fdIn==-1){fprintf(stderr, "Problème à l'ouverture\n");exit(1);}
-                Close(0);
-                if(dup(fdIn) < 0){perror("dup2 ");}
+            else if (pid==0){
+                int fdIn;
+                int fdOut;
+                if (l->in){
+                    fdIn = Open(l->in, O_RDONLY, 0);
+                    if (fdIn==-1){perror("Open ");exit(2);}
+                    Close(0);
+                    if(dup(fdIn) < 0){perror("dup ");}
+                    Close(fdIn);
+                }
+                if (l->out){
+                    fdOut = Open(l->out, O_CREAT | O_WRONLY, 0644);
+                    if (fdOut==-1){perror("Open ");exit(2);}
+                    Close(1);
+                    if(dup(fdOut) < 0){perror("dup ");}
+                    Close(fdOut);
+                }
+                if(execvp(l->seq[0][0], l->seq[0]) < 0){perror("execpv ");exit(2);}
                 Close(fdIn);
-            }
-            if (l->out){
-                fdOut = Open(l->out, O_CREAT | O_WRONLY, 0644);
-                if (fdOut==-1){fprintf(stderr, "Problème à l'ouverture\n");exit(1);}
-                Close(1);
-                if(dup(fdOut) < 0){perror("dup2 ");}
                 Close(fdOut);
+                exit(0);
             }
-			if(execvp(l->seq[0][0], l->seq[0]) < 0){perror("execpv ");exit(1);}
-            Close(fdIn);
-            Close(fdOut);
-			exit(0);
-		}
-		Wait(NULL);
+            Wait(NULL);
+        }
 
 		#ifdef DEBUG
 		if (l->in) printf("in: %s\n", l->in);
