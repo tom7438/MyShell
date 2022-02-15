@@ -2,3 +2,5 @@
 #define __CMDINTERNES_H
 
 int searchCmd(char *cmd);
+
+#endif

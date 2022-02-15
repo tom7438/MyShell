@@ -4,7 +4,7 @@
 .SUFFIXES:
 
 CC=gcc
-CFLAGS=-Wall -g
+CFLAGS=-Wall -Werror -g
 CPPFLAGS= # Utile pour l'option DEBUG (affichage particulier) make DEBUG=1
 VPATH=src/
 
@@ -13,8 +13,8 @@ VPATH=src/
 #LIBS += -lsocket -lnsl -lrt
 LIBS+=-lpthread
 
-INCLUDE = readcmd.h csapp.h
-OBJS = readcmd.o csapp.o
+INCLUDE = readcmd.h csapp.h CmdInternes.h
+OBJS = readcmd.o csapp.o CmdInternes.o
 INCLDIR = -I.
 
 ifdef DEBUG
