@@ -2,10 +2,10 @@
 #include <string.h>
 #include "CmdInternes.h"
 
-char CommandesInternes[4][10]={"pwd", "cd", "set", "echo"};
+char CommandesInternes[5][10]={"pwd", "cd", "set", "echo", "type"};
 
 int searchCmd(char *cmd){
-    for(int i=0; i<4; i++){
+    for(int i=0; i<5; i++){
         if (!strcmp(cmd, CommandesInternes[i])) {
             return 0;
         }
