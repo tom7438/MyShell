@@ -12,3 +12,17 @@ int searchCmd(char *cmd){
     }
     return -1;
 }
+
+int cmd(char **cmd){
+    //split à faire
+    /*switch(cmd){
+        case pwd:
+            cmdPwd();
+            break;
+    }*/
+    return 0;
+}
+
+void cmdPwd(){
+    return 0;
+}
