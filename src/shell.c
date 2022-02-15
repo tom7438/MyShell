@@ -31,7 +31,7 @@ int main(){
 		
 		// 2) Si la commande est quit alors exit
 		if (!strcmp(l->seq[0][0], "quit") || !strcmp(l->seq[0][0], "exit")){
-			printf("\n");
+			printf("quit\n");
 			exit(0);
 		}
 
