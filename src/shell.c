@@ -10,12 +10,47 @@
 
 
 int main(){
+    printf("\033[34m");
+    printf("************************************\n");
+    printf("//////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n");
+    printf("////// STARTING THE NEW SHELL \\\\\\\\\\\\\n");
+    printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//////////////////\n");
+    printf("         _________________________.\n");
+    printf("        / _____________________  /|\n");
+    printf("       / / ___________________/ / |\n");
+    printf("      / / /| |MARCHIONINI DAVID/  |\n");
+    printf("     / / / | |CLEMENT TOM   / / . |\n");
+    printf("    / / /| | |             / / /| |\n");
+    printf("   / / / | | |L3-INFO-SR  / / / | |\n");
+    printf("  / / /  | | |           / / /| | |\n");
+    printf(" / /_/___| | |__________/ / / | | |\n");
+    printf("/________| | |___________/ /  | | |\n");
+    printf("| _______| | |__________ | |  | | |\n");
+    printf("| | |    | | |_________| | |__| | |\n");
+    printf("| | |    | |___________| | |____| |\n");
+    printf("| | |   / / ___________| | |_  / /\n");
+    printf("| | |  / / /           | | |/ / /\n");
+    printf("| | | / / /            | | | / /\n");
+    printf("| | |/ / /             | | |/ /\n");
+    printf("| | | / /              | | ' /\n");
+    printf("| | |/_/_______________| |  /\n");
+    printf("| |____________________| | /\n");
+    printf("|________________________|/\n");
+    printf("************************************\n\n");
+    printf("          ");
+    printf("\033[4m[ MyShell v1.0 ]\033[0m");
+    printf("          ");
+    printf("\033[00m\n\n\n");
+    int couleur=31;
 	while (1) {
 		struct cmdline *l;
 		//int i, j;
 
-		printf("myShell> ");
-		l = readcmd();
+        printf("\033[%dm", couleur);
+        printf("\033[4mMyShell >\033[00m ");
+        couleur=(couleur+1-31)%18+31;
+
+        l = readcmd();
 
 		/* If input stream closed, normal termination */
 		if (!l) {
@@ -31,7 +66,7 @@ int main(){
 		
 		// 2) Si la commande est quit alors exit
 		if (!strcmp(l->seq[0][0], "quit") || !strcmp(l->seq[0][0], "exit")){
-			printf("quit\n");
+			printf("%s\n", l->seq[0][0]);
 			exit(0);
 		}
 
