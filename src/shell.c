@@ -50,10 +50,11 @@ int main(){
         printf("\033[%dm", couleur);
         printf("\033[4mMyShell:\033[00m");
         if(!strcmp(getenv("HOME"), getcwd(rep, 100))){
-            printf("\033[34m~>\033[00m ");
+            printf("\033[34m~\033[00m");
         } else{
-            printf("\033[34m%s>\033[00m ",getcwd(rep, 100));
+            printf("\033[34m%s\033[00m",getcwd(rep, 100));
         }
+        printf(" # ");
         if((couleur=(couleur+1-31)%18+31)==34){couleur++;};
 
         l = readcmd();
