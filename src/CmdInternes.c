@@ -18,6 +18,12 @@ int searchCmd(char *cmd){
 int cmd(char **cmd){
     if(!strcmp(cmd[0], "pwd")){
         cmdPwd();
+    } else if(!strcmp(cmd[0], "cd")){
+        if(cmd[1]!=NULL){
+            cmdCd(cmd[1]);
+        } else{
+            cmdCd(getenv("HOME"));
+        }
     } else{
         printf("Commande interne à coder\n");
     }
@@ -29,6 +35,7 @@ void cmdPwd(){
     printf("%s\n", getcwd(s, 100));
 }
 
-void cmdCd(){
-
+void cmdCd(char *dir){
+    int res=chdir(dir);
+    if(res==-1){perror("chdir() ");exit(EXIT_FAILURE);}
 }
