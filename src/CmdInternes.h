@@ -16,4 +16,6 @@ int cmd(char **cmd);
  */
 void cmdPwd();
 
+void cmdCd();
+
 #endif

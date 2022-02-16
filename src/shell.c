@@ -72,7 +72,6 @@ int main(){
 
         // Commande interne ou non
         if(!searchCmd(l->seq[0][0])){
-            printf("Commande interne à coder\n");
             cmd(l->seq[0]);
         }
 		// 3) && 4) Commande simple && Redirections d'entrées et sorties
