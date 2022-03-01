@@ -18,12 +18,22 @@ int searchCmd(char *cmd){
 int cmd(char **cmd){
     if(!strcmp(cmd[0], "pwd")){
         cmdPwd();
-    } else if(!strcmp(cmd[0], "cd")){
-        if(cmd[1]!=NULL){
+    } else if(!strcmp(cmd[0], "cd")) {
+        if (cmd[1] != NULL) {
             cmdCd(cmd[1]);
-        } else{
+        } else {
             cmdCd(getenv("HOME"));
         }
+    } else if(!strcmp(cmd[0], "echo")) {
+        int i=1;
+        while(cmd[i]){
+            if(i!=1){
+                printf(" ");
+            }
+            printf("%s", cmd[i]);
+            i++;
+        }
+        printf("\n");
     } else{
         printf("Commande interne à coder\n");
     }
