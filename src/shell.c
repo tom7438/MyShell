@@ -7,6 +7,7 @@
 #include "readcmd.h"
 #include "csapp.h"
 #include "CmdInternes.h"
+#include "handler.h"
 
 
 int main(){
@@ -42,6 +43,7 @@ int main(){
     printf("          ");
     printf("\033[00m\n\n\n");
     int couleur=31;
+    signal(SIGCHLD, &HandlerChild);
 	while (1) {
 		struct cmdline *l;
 		//int i, j;
@@ -104,12 +106,14 @@ int main(){
                     if(dup(fdOut) < 0){perror("dup ");}
                     Close(fdOut);
                 }
-                if(execvp(l->seq[0][0], l->seq[0]) < 0){perror("execpv ");exit(2);}
+                if(execvp(l->seq[0][0], l->seq[0]) < 0){perror("execvp ");exit(2);}
                 Close(fdIn);
                 Close(fdOut);
                 exit(0);
             }
-            Wait(NULL);
+            if(!l->bg){
+                Wait(NULL);
+            }
         }
 
 		#ifdef DEBUG
