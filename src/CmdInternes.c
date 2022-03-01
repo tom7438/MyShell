@@ -26,7 +26,7 @@ int cmd(char **cmd){
         }
     } else if(!strcmp(cmd[0], "echo")) {
         int i=1;
-        while(cmd[i]){
+        while(cmd[i] && strcmp(cmd[i],"&")){
             if(i!=1){
                 printf(" ");
             }
