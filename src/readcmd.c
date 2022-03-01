@@ -232,6 +232,14 @@ struct cmdline *readcmd(void)
 			cmd[0] = 0;
 			cmd_len = 0;
 			break;
+            case '&':
+                /* Pour commande en background */
+                if (cmd_len == 0) {
+                    s->err = "misplaced background";
+                    goto error;
+                }
+
+                s->bg=1;
 		default:
 			cmd = xrealloc(cmd, (cmd_len + 2) * sizeof(char *));
 			cmd[cmd_len++] = w;
