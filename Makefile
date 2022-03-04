@@ -13,8 +13,8 @@ VPATH=src/
 #LIBS += -lsocket -lnsl -lrt
 LIBS+=-lpthread
 
-INCLUDE = readcmd.h csapp.h CmdInternes.h handler.h
-OBJS = readcmd.o csapp.o CmdInternes.o handler.o
+INCLUDE = readcmd.h csapp.h CmdInternes.h shell_utils.h handler.h
+OBJS = readcmd.o csapp.o CmdInternes.o shell_utils.o handler.o
 INCLDIR = -I.
 
 ifdef DEBUG
