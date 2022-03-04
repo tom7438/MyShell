@@ -10,7 +10,6 @@ BINDIR=Bin
 CC=gcc
 CFLAGS=-Wall -Werror -g
 CPPFLAGS= -I$(HEADDIR)# Utile pour l'option DEBUG (affichage particulier) make DEBUG=1
-#VPATH=src/
 
 SRCS=$(wildcard $(SRCDIR)/*.c)
 OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
@@ -20,8 +19,6 @@ EXEC=$(BINDIR)/shell
 # probably be necessary on Solaris for linking network-related functions 
 #LIBS += -lsocket -lnsl -lrt
 LIBS+=-lpthread
-
-# INCLUDE = readcmd.h csapp.h CmdInternes.h shell_utils.h handler.h
 
 ifdef DEBUG
 	CPPFLAGS+=-DDEBUG
