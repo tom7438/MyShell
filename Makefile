@@ -3,32 +3,39 @@
 # Disable implicit rules
 .SUFFIXES:
 
+SRCDIR=Srcs
+HEADDIR=Headers
+OBJDIR=Objs
+BINDIR=Bin
 CC=gcc
 CFLAGS=-Wall -Werror -g
-CPPFLAGS= # Utile pour l'option DEBUG (affichage particulier) make DEBUG=1
-VPATH=src/
+CPPFLAGS= -I$(HEADDIR)# Utile pour l'option DEBUG (affichage particulier) make DEBUG=1
+#VPATH=src/
+
+SRCS=$(wildcard $(SRCDIR)/*.c)
+OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+EXEC=$(BINDIR)/shell
 
 # Note: -lnsl does not seem to work on Mac OS but will
 # probably be necessary on Solaris for linking network-related functions 
 #LIBS += -lsocket -lnsl -lrt
 LIBS+=-lpthread
 
-INCLUDE = readcmd.h csapp.h CmdInternes.h shell_utils.h handler.h
-OBJS = readcmd.o csapp.o CmdInternes.o shell_utils.o handler.o
-INCLDIR = -I.
+# INCLUDE = readcmd.h csapp.h CmdInternes.h shell_utils.h handler.h
 
 ifdef DEBUG
 	CPPFLAGS+=-DDEBUG
 endif
 
-all: shell
+all: $(EXEC)
 
-%.o: %.c $(INCLUDE)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLDIR) -c -o $@ $<
+$(EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LIBS)
 
-%: %.o $(OBJS)
-	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-clean:
-	rm -f shell *.o
+clean :
+	-@rm -r $(OBJS) $(SRCDIR)/*~ $(EXEC) 2>/dev/null || true
+	@echo All is remove
 
