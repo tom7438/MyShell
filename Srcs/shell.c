@@ -42,7 +42,7 @@ int main(){
             continue;
         }
 
-        /* Si on clique juste sur entréee sans rien d'autres par exemple */
+        /* Si on clique juste sur entrée sans rien d'autres par exemple */
         if(l->seq[0]==NULL){continue;}
 
         int p=0;
