@@ -1,0 +1,4 @@
+#
+# test06.txt - Tester un pipe avec deux commandes sans argument
+#
+ls | wc
