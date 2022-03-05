@@ -42,14 +42,8 @@ int main(){
             continue;
         }
 
+        /* Si on clique juste sur entréee sans rien d'autres par exemple */
         if(l->seq[0]==NULL){continue;}
-
-        // 2) Si la commande est quit ou exit alors exit
-        if (!strcmp(l->seq[0][0], "quit") || !strcmp(l->seq[0][0], "exit")){
-            printf("%s\n", l->seq[0][0]);
-            exit(0);
-        }
-
 
         int p=0;
         while(l->seq[p]){ p++; } //TROUVE NOMBRE COMMADES

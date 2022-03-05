@@ -4,10 +4,10 @@
 #include <unistd.h>
 #include "CmdInternes.h"
 
-char CommandesInternes[5][10]={"pwd", "cd", "echo"};
+char CommandesInternes[5][10]={"pwd", "cd", "echo", "quit", "exit"};
 
 int searchCmd(char *cmd){
-    for(int i=0; i<3; i++){
+    for(int i=0; i<5; i++){
         if (!strcmp(cmd, CommandesInternes[i])) {
             return 0;
         }
@@ -34,7 +34,10 @@ int cmd(char **cmd){
             i++;
         }
         printf("\n");
-    } else{
+    } else if(!strcmp(cmd[0], "quit") || !strcmp(cmd[0], "exit")){
+        printf("%s\n", cmd[0]);
+        exit(0);
+    }else{
         printf("Commande interne à coder\n");
     }
     return 0;
