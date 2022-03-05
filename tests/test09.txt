@@ -1,4 +1,5 @@
 #
 # test09.txt - Tester plusieurs pipes avec commandes simples
 #
+# ls | wc | wc
 ls | wc | wc

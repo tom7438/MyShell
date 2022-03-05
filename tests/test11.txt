@@ -1,5 +1,7 @@
 #
 # test11.txt - Tester le cat d'un fichier puis vérification du zombie
 #
+# cat Makefile &
+# ps
 cat Makefile &
 ps

@@ -1,4 +1,5 @@
 #
 # test05.txt - Tester une commande avec un argument
 #
+# ls -l
 ls -l

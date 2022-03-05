@@ -1,6 +1,9 @@
 #
 # test10.txt - Tester les commandes internes
 #
+# pwd
+# cd ~
+# pwd
 pwd
 cd ~
 pwd
