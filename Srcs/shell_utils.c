@@ -51,8 +51,10 @@ void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes){
 
             }
 
-
-            if(execvp(l->seq[i][0], l->seq[i]) < 0){perror("execpv ");exit(2);}
+            /* Commande interne ou non */
+            if(!searchCmd(l->seq[0][0])) {
+                cmd(l->seq[0]);
+            } else{ if(execvp(l->seq[i][0], l->seq[i]) < 0){perror("execpv ");exit(2);}}
 
         }
         close(fds[i][1]);
