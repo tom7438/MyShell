@@ -59,6 +59,23 @@ int main(){
                 }else {
                     pid_t pid = Fork();
                     if (pid == 0) {
+                        int fdIn = -1;        //IO REDIRECT
+                        int fdOut = -1;
+                        if (l->in){
+                            fdIn = Open(l->in, O_RDONLY, 0);
+                            if (fdIn==-1){perror("Open ");exit(2);}
+                            Close(0);
+                            if(dup(fdIn) < 0){perror("dup ");}
+                            Close(fdIn);
+                        }
+                        if (l->out){
+                            fdOut = Open(l->out, O_CREAT | O_WRONLY, 0644);
+                            if (fdOut==-1){perror("Open ");exit(2);}
+                            Close(1);
+                            if(dup(fdOut) < 0){perror("dup ");}
+                            Close(fdOut);
+                        }
+
                         if (execvp(l->seq[0][0], l->seq[0]) < 0) {
                             perror("execpv ");
                             exit(2);

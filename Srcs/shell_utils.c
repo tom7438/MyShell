@@ -8,23 +8,8 @@
 void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes){
     //main child
 
-    //io redirect
     int fdIn = -1;
     int fdOut = -1;
-    if (l->in){
-        fdIn = Open(l->in, O_RDONLY, 0);
-        if (fdIn==-1){perror("Open ");exit(2);}
-        Close(0);
-        if(dup(fdIn) < 0){perror("dup ");}
-        Close(fdIn);
-    }
-    if (l->out){
-        fdOut = Open(l->out, O_CREAT | O_WRONLY, 0644);
-        if (fdOut==-1){perror("Open ");exit(2);}
-        Close(1);
-        if(dup(fdOut) < 0){perror("dup ");}
-        Close(fdOut);
-    }
 
 
     //piping
@@ -42,6 +27,24 @@ void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes){
         if(pidc==-1){perror("Fork ");exit(2);}
 
         if(pidc==0){ //child
+            //io redirect
+            if(i==0){ //1st command
+                if (l->in){
+                    fdIn = Open(l->in, O_RDONLY, 0);
+                    if (fdIn==-1){perror("Open ");exit(2);}
+                    Dup2(fdIn,0);
+                    Close(fdIn);
+                }
+            }
+            if(i==n_commandes-1){ //last command
+                if (l->out){
+                    fdOut = Open(l->out, O_CREAT | O_WRONLY, 0644);
+                    if (fdOut==-1){perror("Open ");exit(2);}
+                    Dup2(fdOut,1);
+                    Close(fdOut);
+                }
+            }
+
             if(i!=n_commandes-1){ //all but last cmd
                 Dup2(fds[i][1],1);
 
@@ -51,9 +54,11 @@ void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes){
 
             }
 
+
+
             /* Commande interne ou non */
-            if(!searchCmd(l->seq[0][0])) {
-                cmd(l->seq[0]);
+            if(!searchCmd(l->seq[i][0])) {
+                cmd(l->seq[i]);
             } else{ if(execvp(l->seq[i][0], l->seq[i]) < 0){perror("execpv ");exit(2);}}
 
         }
@@ -64,6 +69,9 @@ void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes){
 
         i++;
     }
+
+
+
 
 
 
