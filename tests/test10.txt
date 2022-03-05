@@ -1,0 +1,6 @@
+#
+# test10.txt - Tester les commandes internes
+#
+pwd
+cd ~
+pwd

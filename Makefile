@@ -9,7 +9,7 @@ OBJDIR=Objs
 BINDIR=Bin
 CC=gcc
 CFLAGS=-Wall -Werror -g
-CPPFLAGS= -I$(HEADDIR)# Utile pour l'option DEBUG (affichage particulier) make DEBUG=1
+CPPFLAGS= -I$(HEADDIR) #Option DEBUG (affichage particulier) make DEBUG=1
 
 SRCS=$(wildcard $(SRCDIR)/*.c)
 OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
