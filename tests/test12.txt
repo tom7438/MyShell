@@ -1,0 +1,7 @@
+#
+# test12.txt - Tester le cat d'un fichier puis vérification du zombie
+#
+# cat < Makefile | grep DEBUG > res12.txt
+# cat res12.txt
+cat < Makefile | grep DEBUG > res12.txt
+cat res12.txt
