@@ -49,29 +49,39 @@ int main(){
         }
 
 
-        int i=0;
-        while(l->seq[i]){ i++; } //TROUVE NOMBRE COMMADES
-        int n_commandes=i;
+        int p=0;
+        while(l->seq[p]){ p++; } //TROUVE NOMBRE COMMADES
+        int n_commandes=p;
         int n_pipes = n_commandes-1;
 
-        pid_t pid=Fork();
-        if(pid==-1){perror("Fork ");exit(2);}
-
-        else if(pid==0){
+        if(n_commandes>=1){
 
             if(n_commandes == 1){ //execute single command
-                if(execvp(l->seq[0][0], l->seq[0]) < 0){perror("execpv ");exit(2);}
+                /* Commande interne ou non */
+                if(!searchCmd(l->seq[0][0])){
+                    cmd(l->seq[0]);
+                }else {
+                    pid_t pid = Fork();
+                    if (pid == 0) {
+                        if (execvp(l->seq[0][0], l->seq[0]) < 0) {
+                            perror("execpv ");
+                            exit(2);
+                        }
+                        exit(0);
+                    } else if(!l->bg){ Wait(NULL); }
+                }
             }else{                  // execute multiple commands with pipe(s)
-                exec_pipes(l, n_pipes, n_commandes,pid);
+                exec_pipes(l, n_pipes, n_commandes);
             }
-        }else if(!l->bg){Wait(NULL);}
+        }
+
         // Commande interne ou non
         //if(!searchCmd(l->seq[0][0])){
         //    cmd(l->seq[0]);
         //}
 
 
-        #ifdef DEBUG
+#ifdef DEBUG
         if (l->in) printf("in: %s\n", l->in);
 		if (l->out) printf("out: %s\n", l->out);
 
@@ -85,6 +95,6 @@ int main(){
 			}
 			printf("\n");
 		}
-        #endif
+#endif
     }
 }

@@ -3,6 +3,6 @@
 
 void print_icon(void);
 
-void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes, pid_t pid);
+void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes);
 
 #endif
