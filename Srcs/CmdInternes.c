@@ -49,6 +49,9 @@ void cmdPwd(){
 }
 
 void cmdCd(char *dir){
+    if(!strcmp(dir, "~")){
+        dir=getenv("HOME");
+    }
     int res=chdir(dir);
     if(res==-1){perror("chdir() ");exit(EXIT_FAILURE);}
 }
