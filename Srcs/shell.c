@@ -42,7 +42,7 @@ int main(){
             continue;
         }
 
-        // 2) Si la commande est quit alors exit
+        // 2) Si la commande est quit ou exit alors exit
         if (!strcmp(l->seq[0][0], "quit") || !strcmp(l->seq[0][0], "exit")){
             printf("%s\n", l->seq[0][0]);
             exit(0);
