@@ -62,7 +62,7 @@ void exec_pipes(struct cmdline *l, int n_pipes, int n_commandes){
             } else{ if(execvp(l->seq[i][0], l->seq[i]) < 0){perror("execpv ");exit(2);}}
 
         }
-        close(fds[i][1]);
+        if(fds[i][1]){close(fds[i][1]);}
 
         if(i!=0){close(fds[i-1][0]);}
         while(waitpid(0,0,0) < 0);
