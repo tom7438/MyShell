@@ -20,7 +20,8 @@ int main(){
 
         char *rep=(char *)malloc(sizeof(char)*100);
         printf("\033[%dm", couleur);
-        printf("\033[4mMyShell:\033[00m");
+        printf("\033[4mMyShell\033[00m");
+        printf(":");
         if(!strcmp(getenv("HOME"), getcwd(rep, 100))){
             printf("\033[34m~\033[00m");
         } else{
@@ -75,9 +76,9 @@ int main(){
                             if(dup(fdOut) < 0){perror("dup ");}
                             Close(fdOut);
                         }
-
                         if (execvp(l->seq[0][0], l->seq[0]) < 0) {
-                            perror("execpv ");
+                        	fprintf(stderr, "%s: command not found\n", l->seq[0][0]);
+                            //perror("execpv ");
                             exit(2);
                         }
                         exit(0);
@@ -87,11 +88,6 @@ int main(){
                 exec_pipes(l, n_pipes, n_commandes);
             }
         }
-
-        // Commande interne ou non
-        //if(!searchCmd(l->seq[0][0])){
-        //    cmd(l->seq[0]);
-        //}
 
 
 #ifdef DEBUG
